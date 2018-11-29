@@ -57,6 +57,7 @@ public class OpenGLRenderer implements Renderer{
     private float[] mViewMatrix = new float[16];
     private float[] mMatrix = new float[16];
 
+    int m=0;
     int n=0;
     float eyeX = 3;
     float eyeY = 3;
@@ -129,20 +130,43 @@ public class OpenGLRenderer implements Renderer{
             floats.add(1f);
         }
 
-        n=floats.size();
+        m=floats.size();
 
-        for(int i=0;i<n;i+=3)
+        for(int i=0;i<m;i+=3)
         {
             float x = floats.get(i);
             float y = floats.get(i + 1);
             float z = floats.get(i + 2);
-            for(float j=1f;j>=0;j-=0.1f)
+
+            float x1=floats.get(i+3);
+            float y1=floats.get(i+4);
+            for(float j=1f;j>-1;j-=0.1f)
             {
-
-
+                float j1=j-0.1f;
                 floats.add(j * x);
                 floats.add(j * y);
                 floats.add(j);
+
+                floats.add(j * x1);
+                floats.add(j * y1);
+                floats.add(j);
+
+                floats.add(j1 * x);
+                floats.add(j1 * y);
+                floats.add(j1);
+
+                floats.add(j1 * x);
+                floats.add(j1 * y);
+                floats.add(j1);
+
+                floats.add(j1 * x1);
+                floats.add(j1 * y1);
+                floats.add(j1);
+
+                floats.add(j * x1);
+                floats.add(j * y1);
+                floats.add(j);
+
             }
         }
 
@@ -246,10 +270,16 @@ public class OpenGLRenderer implements Renderer{
 
         glUniform4f(uColorLocation, 1.0f, 1f, 0.0f, 1.0f);
 
-        for(int i=0;i<n-24;i++)
+        for(int i=0;i<n-36;i+=6)
         {
-            glDrawArrays(GL_POINTS,i/3
-                    , 1);
+            glUniform4f(uColorLocation, 1.0f, 1f, 0.0f, 1.0f);
+            //if(i%m==0)
+            glDrawArrays(GL_TRIANGLES,i/3
+                    , 3);
+            glUniform4f(uColorLocation, 0.0f, 1f, 1.0f, 1.0f);
+            //if(i+3%m==0)
+            glDrawArrays(GL_TRIANGLES,i/3+3
+                    , 3);
         }
 
         //glDrawArrays(GL_LINE_STRIP,0 , n/3-6);
