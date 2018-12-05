@@ -98,15 +98,6 @@ public class OpenGLRenderer implements Renderer{
         bindMatrix();
     }
 
-    private float getY(float x)
-    {
-        return (float) (Math.sqrt(1-Math.pow(x+1f,2)))+1f;
-    }
-
-    private float getY2(float x)
-    {
-        return -(float) (Math.sqrt(4-Math.pow(x,2)))+1;
-    }
 
 
     private void prepareData() {
@@ -115,24 +106,20 @@ public class OpenGLRenderer implements Renderer{
         float d = 5f;
         float l = 5f;
 
-        ArrayList<Float> floats=new ArrayList<>();
-        for(float i=0;i>=(-2f);i-=0.1f)
-        {
-            floats.add(i);
-            floats.add(getY(i));
-            floats.add(1f);
-        }
+        ArrayList<Float> floats=new Spiral(0.3f,5f).getPoints();
 
-        for(float i=-2;i<=2f;i+=0.1f)
+
+        /*float r=0.3f,a=5f;
+        for(float i=0;i<a;i+=0.1)
         {
-            floats.add(i);
-            floats.add(getY2(i));
+            floats.add((float) (-r*i*Math.sin(i)));
+            floats.add((float) (0.3+r*i*Math.cos(i)));
             floats.add(1f);
-        }
+        }*/
 
         m=floats.size();
 
-        for(int i=0;i<m;i+=3)
+        /*for(int i=0;i<m;i+=3)
         {
             float x = floats.get(i);
             float y = floats.get(i + 1);
@@ -168,7 +155,7 @@ public class OpenGLRenderer implements Renderer{
                 floats.add(j);
 
             }
-        }
+        }*/
 
         floats.add(-l);
         floats.add(0f);
@@ -270,7 +257,7 @@ public class OpenGLRenderer implements Renderer{
 
         glUniform4f(uColorLocation, 1.0f, 1f, 0.0f, 1.0f);
 
-        for(int i=0;i<n-36;i+=6)
+        /*for(int i=0;i<n-36;i+=6)
         {
             glUniform4f(uColorLocation, 1.0f, 1f, 0.0f, 1.0f);
             //if(i%m==0)
@@ -280,9 +267,9 @@ public class OpenGLRenderer implements Renderer{
             //if(i+3%m==0)
             glDrawArrays(GL_TRIANGLES,i/3+3
                     , 3);
-        }
+        }*/
 
-        //glDrawArrays(GL_LINE_STRIP,0 , n/3-6);
+        glDrawArrays(GL_LINE_STRIP,0 , n/3-6);
 
 
 

@@ -142,11 +142,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d("My",sb.toString());*/
     }
 
-    String format(float values[]) {
-        return String.format("%1$.1f\t\t%2$.1f\t\t%3$.1f", values[0], values[1],
-                values[2]);
-    }
-
     private boolean supportES2() {
 
         try {
@@ -160,14 +155,9 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-
-
-
     public void forceCrash(View view) {
         throw new RuntimeException("This is a crash");
     }
-
-
 
     float[] valuesAccel = new float[3];
     float[] valuesAccelMotion = new float[3];
